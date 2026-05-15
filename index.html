@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOCOOCA PK – Société Coopérative des Producteurs de Koukoué</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollreveal/4.0.9/scrollreveal.min.js"></script>
+
+  <style>
+    /* ─── CSS VARIABLES ─── */
+    :root {
+      --green:        #1A7A4A;
+      --green-dark:   #0f5233;
+      --green-mid:    #25a065;
+      --green-light:  #e6f5ec;
+      --orange:       #F39C12;
+      --orange-dark:  #d68910;
+      --white:        #FFFFFF;
+      --offwhite:     #F7F9F7;
+      --gray-light:   #EEF1EE;
+      --gray:         #8A9B8D;
+      --text:         #1A2B1D;
+
+      /* ── Glassmorphisme amélioré ── */
+      --glass-bg:        rgba(255, 255, 255, 0.18);
+      --glass-bg-strong: rgba(255, 255, 255, 0.28);
+      --glass-bg-dark:   rgba(15, 82, 51, 0.35);
+      --glass-border:    rgba(255, 255, 255, 0.38);
+      --glass-border-dark: rgba(255,255,255,0.12);
+      --glass-blur:      blur(28px) saturate(180%);
+      --glass-blur-light: blur(16px) saturate(150%);
+
+      --shadow-soft:  0 8px 40px rgba(26,122,74,0.12);
+      --shadow-glass: 0 8px 32px 0 rgba(26,122,74,0.15), inset 0 1px 0 rgba(255,255,255,0.4);
+      --shadow-deep:  0 24px 60px rgba(15,82,51,0.25);
+
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 8px;
+
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'DM Sans', sans-serif;
+      --transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--ff-body);
+      color: var(--text);
+      background: var(--offwhite);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: var(--ff-body); }
+
+    /* ─── NOISE TEXTURE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--offwhite); }
+    ::-webkit-scrollbar-thumb { background: var(--green-mid); border-radius: 99px; }
+
+    /* ─── UTILITY ─── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--orange);
+      background: rgba(243,156,18,0.12);
+      border: 1px solid rgba(243,156,18,0.30);
+      padding: 6px 16px; border-radius: 99px; margin-bottom: 16px;
+      backdrop-filter: var(--glass-blur-light);
+      -webkit-backdrop-filter: var(--glass-blur-light);
+    }
+    .section-tag::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--orange); display: inline-block;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      font-weight: 700; line-height: 1.15; color: var(--text);
+    }
+    .section-title span { color: var(--green); }
+    .section-lead {
+      font-size: 1rem; color: var(--gray);
+      line-height: 1.75; margin-top: 14px; max-width: 600px;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--green), var(--green-mid));
+      color: #fff; padding: 14px 28px; border-radius: 99px;
+      font-size: 0.9rem; font-weight: 600; letter-spacing: 0.02em;
+      border: none; cursor: pointer; transition: var(--transition);
+      position: relative; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(26,122,74,0.35);
+      text-decoration: none;
+    }
+    .btn-primary::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(26,122,74,0.45);
+    }
+    .btn-primary svg { transition: transform 0.3s; }
+    .btn-primary:hover svg { transform: translateX(3px); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1.5px solid var(--green); color: var(--green);
+      padding: 13px 26px; border-radius: 99px;
+      font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      transition: var(--transition); background: transparent;
+      text-decoration: none;
+    }
+    .btn-ghost:hover {
+      background: var(--green); color: #fff; transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26,122,74,0.3);
+    }
+
+    /* ─── GLASS CARD AMÉLIORÉ ─── */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-glass);
+    }
+    .glass-card-strong {
+      background: var(--glass-bg-strong);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-glass);
+    }
+
+    /* ════════════════════════════════════════════
+       NAVBAR GLASSMORPHIQUE
+    ════════════════════════════════════════════ */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      transition: var(--transition);
+      padding: 0;
+    }
+    /* Glass dès le début sur hero */
+    #navbar.hero-mode {
+      background: rgba(15, 60, 30, 0.25);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    #navbar.scrolled {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(24px) saturate(200%);
+      -webkit-backdrop-filter: blur(24px) saturate(200%);
+      box-shadow: 0 2px 30px rgba(26,122,74,0.12);
+      border-bottom: 1px solid rgba(26,122,74,0.1);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      height: 72px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+      flex-shrink: 0;
+    }
+    .logo-fallback {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--green), var(--green-mid));
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .logo-fallback img { width: 100%; height: 100%; object-fit: contain; }
+    .logo-fallback span {
+      font-family: var(--ff-display); color: #fff;
+      font-size: 1.1rem; font-weight: 700;
+    }
+    .nav-logo-text { line-height: 1.2; }
+    .nav-logo-text strong {
+      display: block; font-size: 0.95rem; font-weight: 700;
+      color: var(--green); letter-spacing: 0.05em;
+      transition: color 0.3s;
+    }
+    #navbar.hero-mode .nav-logo-text strong { color: #fff; }
+    #navbar.hero-mode .nav-logo-text small { color: rgba(255,255,255,0.55); }
+    .nav-logo-text small {
+      font-size: 0.68rem; color: var(--gray);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.88rem; font-weight: 500; color: var(--text);
+      padding: 8px 14px; border-radius: 99px;
+      transition: var(--transition); position: relative;
+    }
+    #navbar.hero-mode .nav-links a { color: rgba(255,255,255,0.85); }
+    #navbar.hero-mode .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.12); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 4px; left: 50%;
+      transform: translateX(-50%); width: 0; height: 2px;
+      background: var(--orange); border-radius: 1px; transition: width 0.3s;
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 20px; }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--green); }
+    #navbar.hero-mode .nav-links a.active { color: var(--orange); }
+
+    .nav-cta {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .btn-member {
+      background: linear-gradient(135deg, var(--green), var(--green-mid));
+      color: #fff; padding: 10px 22px; border-radius: 99px;
+      font-size: 0.85rem; font-weight: 600;
+      transition: var(--transition); cursor: pointer; border: none;
+      box-shadow: 0 4px 16px rgba(26,122,74,0.35);
+      display: inline-flex; align-items: center; gap: 7px;
+      text-decoration: none;
+    }
+    .btn-member:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(26,122,74,0.5);
+    }
+    #navbar.hero-mode .btn-member {
+      background: rgba(255,255,255,0.2);
+      border: 1.5px solid rgba(255,255,255,0.4);
+      box-shadow: none;
+    }
+    #navbar.hero-mode .btn-member:hover {
+      background: rgba(255,255,255,0.35);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 6px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--text); border-radius: 2px; transition: var(--transition);
+    }
+    #navbar.hero-mode .hamburger span { background: #fff; }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Mobile Menu GLASSMORPHIQUE */
+    .mobile-menu {
+      position: fixed; top: 72px; left: 12px; right: 12px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: 0 24px 60px rgba(26,122,74,0.2);
+      border-radius: var(--radius-lg);
+      transform: translateY(-20px) scale(0.97);
+      opacity: 0; pointer-events: none;
+      transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+      z-index: 999; padding: 20px;
+    }
+    .mobile-menu.open {
+      transform: translateY(0) scale(1);
+      opacity: 1; pointer-events: all;
+    }
+    .mobile-menu ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .mobile-menu ul a {
+      display: block; padding: 12px 18px; border-radius: var(--radius-sm);
+      font-size: 1rem; font-weight: 500; color: var(--text);
+      transition: var(--transition);
+    }
+    .mobile-menu ul a:hover { background: var(--green-light); color: var(--green); }
+    .mobile-menu-cta {
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid var(--gray-light);
+    }
+    .mobile-menu-cta .btn-member {
+      width: 100%; justify-content: center;
+      font-size: 0.95rem; padding: 14px;
+    }
+
+    /* ════════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(243,156,18,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 80% at 20% 70%, rgba(26,122,74,0.22) 0%, transparent 60%),
+        linear-gradient(160deg, #083220 0%, #1A7A4A 40%, #25a065 70%, #155e38 100%);
+      display: flex; align-items: center;
+      padding: 120px 0 80px;
+      position: relative; overflow: hidden;
+    }
+    /* Cercles décoratifs */
+    #hero::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 500px; height: 500px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+      animation: rotate-slow 30s linear infinite;
+    }
+    #hero::after {
+      content: '';
+      position: absolute; bottom: -200px; left: -150px;
+      width: 600px; height: 600px; border-radius: 50%;
+      border: 1px solid rgba(243,156,18,0.15);
+      animation: rotate-slow 40s linear infinite reverse;
+    }
+    @keyframes rotate-slow { to { transform: rotate(360deg); } }
+
+    /* Orbe brillant */
+    .hero-orb {
+      position: absolute; top: 10%; right: 5%;
+      width: 320px; height: 320px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(243,156,18,0.18) 0%, transparent 70%);
+      filter: blur(40px); animation: float-orb 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes float-orb {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center; position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(243,156,18,0.18);
+      border: 1px solid rgba(243,156,18,0.40);
+      color: #fbbf24; padding: 6px 18px; border-radius: 99px;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 28px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .hero-badge::before { content: '🌿'; font-size: 0.9rem; }
+
+    .hero-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2.2rem, 4.5vw, 4rem);
+      font-weight: 700; line-height: 1.1;
+      color: #fff; margin-bottom: 22px;
+    }
+    .hero-title .highlight {
+      color: var(--orange);
+      position: relative; display: inline-block;
+    }
+    .hero-title .highlight::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--orange), transparent);
+      border-radius: 2px;
+    }
+    .hero-sub {
+      font-size: 1rem; color: rgba(255,255,255,0.75); line-height: 1.8;
+      margin-bottom: 36px; max-width: 480px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .btn-hero-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--orange); color: #fff;
+      padding: 15px 30px; border-radius: 99px;
+      font-size: 0.92rem; font-weight: 700;
+      border: none; cursor: pointer; transition: var(--transition);
+      box-shadow: 0 8px 30px rgba(243,156,18,0.4);
+      text-decoration: none;
+    }
+    .btn-hero-primary:hover {
+      transform: translateY(-3px);
+      background: var(--orange-dark);
+      box-shadow: 0 14px 40px rgba(243,156,18,0.55);
+    }
+    .btn-hero-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1.5px solid rgba(255,255,255,0.40); color: #fff;
+      padding: 14px 28px; border-radius: 99px;
+      font-size: 0.92rem; font-weight: 500; cursor: pointer;
+      transition: var(--transition);
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-decoration: none;
+    }
+    .btn-hero-ghost:hover {
+      background: rgba(255,255,255,0.22);
+      border-color: rgba(255,255,255,0.65);
+      transform: translateY(-2px);
+    }
+
+    /* Hero stats glassmorphisme */
+    .hero-stats {
+      display: flex; gap: 0; margin-top: 44px;
+      padding-top: 36px; border-top: 1px solid rgba(255,255,255,0.12);
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      flex: 1; min-width: 90px;
+      padding: 0 20px 0 0;
+    }
+    .stat-item:not(:last-child) {
+      border-right: 1px solid rgba(255,255,255,0.12);
+      margin-right: 20px;
+    }
+    .stat-value {
+      font-family: var(--ff-display); font-size: 2.2rem; font-weight: 700;
+      color: var(--orange); line-height: 1;
+    }
+    .stat-label { font-size: 0.76rem; color: rgba(255,255,255,0.55); margin-top: 4px; }
+
+    /* Hero visual */
+    .hero-visual {
+      display: flex; flex-direction: column; gap: 16px; align-items: flex-end;
+    }
+    .hero-card-main {
+      width: 100%;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: var(--radius-lg); overflow: hidden;
+      aspect-ratio: 4/3;
+      display: flex; flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    .hero-img-placeholder {
+      flex: 1;
+      background: linear-gradient(135deg, rgba(26,122,74,0.4) 0%, rgba(243,156,18,0.2) 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-img-placeholder img {
+      width: 100%; height: 100%; object-fit: cover;
+      position: absolute; inset: 0;
+    }
+    .palm-illustration { font-size: 6rem; opacity: 0.7; animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+    .hero-card-footer {
+      padding: 16px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(0,0,0,0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .hero-mini-cards {
+      display: flex; gap: 12px; width: 100%;
+    }
+    .hero-mini-card {
+      flex: 1; padding: 14px 10px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.20);
+      border-radius: var(--radius-md);
+      text-align: center;
+      transition: var(--transition);
+    }
+    .hero-mini-card:hover {
+      background: rgba(255,255,255,0.20);
+      transform: translateY(-3px);
+    }
+    .hero-mini-card .emoji { font-size: 1.5rem; }
+    .hero-mini-card p { font-size: 0.70rem; color: rgba(255,255,255,0.70); margin-top: 6px; font-weight: 500; }
+
+    /* ════════════════════════════════════════════
+       ABOUT
+    ════════════════════════════════════════════ */
+    #about { padding: 120px 0; background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .about-visual { position: relative; }
+    .about-img-frame {
+      border-radius: var(--radius-xl); overflow: hidden;
+      aspect-ratio: 4/5;
+      background: linear-gradient(160deg, var(--green), #0a4726);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      box-shadow: var(--shadow-deep);
+    }
+    .about-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .about-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,71,38,0.5), transparent 60%);
+    }
+    .about-img-fallback { font-size: 8rem; opacity: 0.35; }
+    /* Badge flottant glassmorphique */
+    .about-badge-float {
+      position: absolute; bottom: -20px; right: -24px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.9);
+      display: flex; align-items: center; gap: 14px;
+    }
+    .about-badge-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--orange), #e67e22);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .about-badge-text strong { display: block; font-size: 1.4rem; font-weight: 700; color: var(--text); line-height: 1; }
+    .about-badge-text small { font-size: 0.72rem; color: var(--gray); }
+
+    .about-content {}
+    .about-values {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 36px;
+    }
+    /* Value cards glassmorphiques */
+    .value-card {
+      padding: 20px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(26,122,74,0.12);
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .value-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--orange));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .value-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(26,122,74,0.25);
+      box-shadow: 0 12px 35px rgba(26,122,74,0.12);
+      background: rgba(255,255,255,0.9);
+    }
+    .value-card:hover::before { opacity: 1; }
+    .value-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .value-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .value-card p { font-size: 0.8rem; color: var(--gray); line-height: 1.5; }
+
+    /* ════════════════════════════════════════════
+       FILIÈRES
+    ════════════════════════════════════════════ */
+    #filieres {
+      padding: 120px 0;
+      background: linear-gradient(160deg, #f0f7f2 0%, #e6f2ea 50%, #f7f9f7 100%);
+      position: relative;
+    }
+    #filieres::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+    }
+    .filieres-header { text-align: center; margin-bottom: 64px; }
+    .filieres-header .section-lead { margin: 0 auto; }
+    .filieres-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px;
+    }
+    /* Filière cards glassmorphiques */
+    .filiere-card {
+      border-radius: var(--radius-xl); overflow: hidden;
+      position: relative; cursor: pointer;
+      transition: var(--transition);
+    }
+    .filiere-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-deep); }
+    .filiere-card-inner {
+      padding: 48px 40px;
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: var(--radius-xl);
+      position: relative; overflow: hidden;
+      height: 100%;
+    }
+    .filiere-card-inner::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    }
+    .filiere-card.palme .filiere-card-inner::before { background: linear-gradient(90deg, var(--orange), #e67e22); }
+    .filiere-card.cacao .filiere-card-inner::before { background: linear-gradient(90deg, var(--green), var(--green-mid)); }
+    /* Orbe de fond dans card */
+    .filiere-card.palme .filiere-card-inner::after {
+      content: ''; position: absolute; bottom: -60px; right: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(243,156,18,0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .filiere-card.cacao .filiere-card-inner::after {
+      content: ''; position: absolute; bottom: -60px; right: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,122,74,0.1), transparent 70%);
+      pointer-events: none;
+    }
+
+    .filiere-icon-wrap {
+      width: 72px; height: 72px; border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; margin-bottom: 24px;
+    }
+    .filiere-card.palme .filiere-icon-wrap { background: rgba(243,156,18,0.15); }
+    .filiere-card.cacao .filiere-icon-wrap { background: rgba(26,122,74,0.12); }
+    .filiere-card h3 {
+      font-family: var(--ff-display); font-size: 1.9rem;
+      font-weight: 700; margin-bottom: 12px;
+    }
+    .filiere-card p { color: var(--gray); font-size: 0.92rem; line-height: 1.7; margin-bottom: 24px; }
+    .filiere-specs { display: flex; gap: 10px; flex-wrap: wrap; }
+    .spec-pill {
+      padding: 6px 14px; border-radius: 99px;
+      font-size: 0.75rem; font-weight: 600;
+      background: rgba(255,255,255,0.8); color: var(--text);
+      border: 1px solid var(--gray-light);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .filiere-card.palme .spec-pill {
+      border-color: rgba(243,156,18,0.3);
+      background: rgba(243,156,18,0.08);
+      color: var(--orange-dark);
+    }
+    .filiere-card.cacao .spec-pill {
+      border-color: rgba(26,122,74,0.25);
+      background: rgba(26,122,74,0.07);
+      color: var(--green-dark);
+    }
+
+    /* Stats glassmorphiques */
+    .filieres-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 20px; margin-top: 48px;
+    }
+    .fstat-card {
+      text-align: center; padding: 28px 20px;
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+    .fstat-card:hover {
+      border-color: rgba(26,122,74,0.3);
+      box-shadow: 0 10px 35px rgba(26,122,74,0.12);
+      transform: translateY(-4px);
+    }
+    .fstat-card .fstat-val {
+      font-family: var(--ff-display); font-size: 2.2rem;
+      font-weight: 700; color: var(--green); line-height: 1;
+    }
+    .fstat-card .fstat-label { font-size: 0.78rem; color: var(--gray); margin-top: 6px; }
+
+    /* ════════════════════════════════════════════
+       GALERIE
+    ════════════════════════════════════════════ */
+    #galerie { padding: 120px 0; background: var(--white); }
+    .galerie-header { margin-bottom: 56px; }
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .gal-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gal-item {
+      border-radius: var(--radius-md); overflow: hidden;
+      position: relative; cursor: pointer;
+      background: linear-gradient(135deg, #c8dfc9, #e8f4e9);
+      aspect-ratio: 1;
+      transition: var(--transition);
+    }
+    .gal-item:nth-child(1) { aspect-ratio: auto; }
+    .gal-item:hover { transform: scale(1.025); z-index: 2; box-shadow: 0 16px 40px rgba(26,122,74,0.2); }
+    .gal-item:hover .gal-overlay { opacity: 1; }
+    .gal-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .gal-item:hover img { transform: scale(1.06); }
+    .gal-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+    }
+    .gal-placeholder .gal-emoji { font-size: 2.5rem; }
+    .gal-item:nth-child(1) .gal-placeholder .gal-emoji { font-size: 5rem; }
+    .gal-placeholder span { font-size: 0.72rem; color: var(--gray); font-weight: 500; }
+    /* Glass overlay sur hover */
+    .gal-overlay {
+      position: absolute; inset: 0;
+      background: rgba(15,82,51,0.55);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: var(--transition);
+    }
+    .gal-overlay-icon {
+      width: 54px; height: 54px; border-radius: 50%;
+      background: rgba(255,255,255,0.22);
+      border: 2px solid rgba(255,255,255,0.7);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.4rem;
+    }
+    .gal-item:nth-child(1) { background: linear-gradient(135deg, #b8d4b9 0%, #d4ebd5 100%); }
+    .gal-item:nth-child(2) { background: linear-gradient(135deg, #fde8b8 0%, #fdf4d8 100%); }
+    .gal-item:nth-child(3) { background: linear-gradient(135deg, #c4dbc5 0%, #deeede 100%); }
+    .gal-item:nth-child(4) { background: linear-gradient(135deg, #ffe0a0 0%, #fff3d0 100%); }
+    .gal-item:nth-child(5) { background: linear-gradient(135deg, #b5d1b6 0%, #d2e8d3 100%); }
+    .gal-item:nth-child(6) { background: linear-gradient(135deg, #fccf7a 0%, #fde8b0 100%); }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(8,25,14,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lightbox img {
+      max-width: 90vw; max-height: 85vh;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 24px;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff; font-size: 1.3rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    /* ════════════════════════════════════════════
+       SECTION CONTACT DÉDIÉE (nouvelle)
+    ════════════════════════════════════════════ */
+    #contact-section {
+      padding: 100px 0;
+      background: linear-gradient(160deg, #f0f7f2 0%, #e6f2ea 100%);
+      position: relative; overflow: hidden;
+    }
+    #contact-section::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+    }
+    .contact-orb-1 {
+      position: absolute; top: -80px; left: -80px;
+      width: 350px; height: 350px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,122,74,0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .contact-orb-2 {
+      position: absolute; bottom: -100px; right: -100px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(243,156,18,0.1), transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .contact-info h2 { margin-bottom: 16px; }
+    .contact-info .section-lead { margin-top: 0; }
+
+    .contact-items { margin-top: 36px; display: flex; flex-direction: column; gap: 16px; }
+    .contact-item-card {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 22px;
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+      text-decoration: none; color: inherit;
+    }
+    .contact-item-card:hover {
+      background: rgba(255,255,255,0.88);
+      transform: translateX(6px);
+      box-shadow: 0 8px 28px rgba(26,122,74,0.12);
+      border-color: rgba(26,122,74,0.2);
+    }
+    .contact-item-icon {
+      width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--green), var(--green-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .contact-item-text strong {
+      display: block; font-size: 0.78rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray);
+    }
+    .contact-item-text span { font-size: 0.92rem; color: var(--text); font-weight: 500; }
+
+    /* Formulaire glass */
+    .contact-form-glass {
+      background: rgba(255,255,255,0.70);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.75);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(26,122,74,0.12), inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+    .contact-form-glass h3 {
+      font-family: var(--ff-display); font-size: 1.7rem;
+      font-weight: 700; margin-bottom: 24px; color: var(--text);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--gray); letter-spacing: 0.05em; }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(26,122,74,0.12);
+      border-radius: var(--radius-sm);
+      font-family: var(--ff-body); font-size: 0.9rem; color: var(--text);
+      transition: var(--transition); outline: none;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--green);
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 0 0 3px rgba(26,122,74,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--green), var(--green-mid));
+      color: #fff; padding: 15px 30px; border-radius: 99px;
+      font-size: 0.95rem; font-weight: 700;
+      border: none; cursor: pointer; transition: var(--transition);
+      box-shadow: 0 8px 24px rgba(26,122,74,0.35);
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(26,122,74,0.5);
+    }
+
+    /* ════════════════════════════════════════════
+       QUOTE STRIP
+    ════════════════════════════════════════════ */
+    #quote-strip {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+      position: relative; overflow: hidden;
+    }
+    #quote-strip::before {
+      content: '❝'; position: absolute; top: -30px; left: 60px;
+      font-size: 14rem; color: rgba(255,255,255,0.05);
+      font-family: Georgia, serif;
+    }
+    /* Bulle glassmorphique sur la citation */
+    .quote-glass {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      max-width: 800px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .quote-text {
+      font-family: var(--ff-display); font-size: clamp(1.3rem, 3vw, 1.9rem);
+      font-weight: 600; color: #fff; line-height: 1.55; margin-bottom: 28px;
+      text-align: center;
+    }
+    .quote-author {
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+    }
+    .quote-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.35);
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    }
+    .quote-author-info strong { display: block; color: #fff; font-size: 0.92rem; }
+    .quote-author-info small { color: rgba(255,255,255,0.55); font-size: 0.78rem; }
+
+    /* ════════════════════════════════════════════
+       FOOTER GLASSMORPHIQUE
+    ════════════════════════════════════════════ */
+    footer#footer-main {
+      background: var(--text);
+      color: rgba(255,255,255,0.75);
+      padding: 72px 0 0;
+      position: relative; overflow: hidden;
+    }
+    footer#footer-main::before {
+      content: ''; position: absolute;
+      top: -200px; right: -200px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,122,74,0.1), transparent 70%);
+      pointer-events: none;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px; margin-bottom: 60px;
+      position: relative; z-index: 1;
+    }
+    .footer-brand p { font-size: 0.85rem; line-height: 1.75; max-width: 280px; }
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; color: rgba(255,255,255,0.7);
+      transition: var(--transition); cursor: pointer;
+      text-decoration: none;
+    }
+    .social-btn:hover {
+      background: var(--green); border-color: var(--green);
+      color: #fff; transform: translateY(-3px);
+    }
+    .footer-col h5 {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a {
+      font-size: 0.87rem; color: rgba(255,255,255,0.6); transition: var(--transition);
+    }
+    .footer-col ul a:hover { color: var(--orange); padding-left: 4px; }
+    .footer-contact-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.85rem; margin-bottom: 14px;
+    }
+    .contact-icon-small {
+      width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+      background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+    }
+    .footer-contact-item a {
+      color: rgba(255,255,255,0.75); transition: color 0.3s;
+      font-size: 0.85rem;
+    }
+    .footer-contact-item a:hover { color: var(--orange); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 24px 0;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; position: relative; z-index: 1;
+    }
+    .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+    .footer-bottom a { color: var(--orange); }
+
+    /* ─── SCROLL TO TOP ─── */
+    #scroll-top {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 48px; height: 48px; border-radius: 14px;
+      background: rgba(26,122,74,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 28px rgba(26,122,74,0.4);
+      opacity: 0; transform: translateY(16px);
+      transition: var(--transition); font-size: 1.1rem;
+    }
+    #scroll-top.visible { opacity: 1; transform: translateY(0); }
+    #scroll-top:hover {
+      transform: translateY(-4px);
+      background: var(--green-dark);
+      box-shadow: 0 12px 36px rgba(26,122,74,0.5);
+    }
+
+    /* ─── ANIMATED GRADIENT TEXT ─── */
+    .grad-text {
+      background: linear-gradient(135deg, var(--orange), #fbbf24, var(--orange));
+      background-size: 200% auto;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s linear infinite;
+    }
+    @keyframes shimmer { to { background-position: 200% center; } }
+
+    .nav-links a.active { color: var(--green); }
+    .nav-links a.active::after { width: 20px; }
+
+    /* ════════════════════════════════════════════
+       RESPONSIVE — TABLETTE (≤1024px)
+    ════════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .filieres-stats { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { gap: 40px; }
+      .contact-form-glass { padding: 32px; }
+    }
+
+    /* ════════════════════════════════════════════
+       RESPONSIVE — MOBILE (≤768px)
+    ════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* Nav */
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      /* Hero */
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { display: none; }
+      .hero-stats { flex-wrap: wrap; gap: 16px; padding-top: 28px; margin-top: 32px; }
+      .stat-item { flex: 0 0 calc(50% - 8px); border-right: none !important; margin-right: 0 !important; padding: 0; }
+      .stat-item:nth-child(odd) { padding-right: 0; }
+      #hero { padding: 100px 0 60px; }
+      .hero-title { font-size: clamp(2rem, 7vw, 2.8rem); }
+      .hero-sub { font-size: 0.95rem; }
+      .hero-orb { width: 200px; height: 200px; }
+
+      /* About */
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-badge-float { right: 0; bottom: -16px; }
+      .about-img-frame { aspect-ratio: 16/9; }
+
+      /* Filières */
+      .filieres-grid { grid-template-columns: 1fr; }
+      .filiere-card-inner { padding: 36px 28px; }
+      .filieres-stats { grid-template-columns: repeat(2, 1fr); }
+
+      /* Galerie */
+      .galerie-grid { grid-template-columns: repeat(2, 1fr); }
+      .gal-item:nth-child(1) { grid-column: span 2; }
+
+      /* Contact */
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-form-glass { padding: 28px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+
+      /* Footer */
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+
+      /* Quote */
+      .quote-glass { padding: 32px 24px; }
+
+      /* Section paddings réduits */
+      #about, #filieres, #galerie, #contact-section { padding: 80px 0; }
+      #quote-strip { padding: 60px 0; }
+    }
+
+    /* ════════════════════════════════════════════
+       RESPONSIVE — SMALL MOBILE (≤480px)
+    ════════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .galerie-grid { grid-template-columns: 1fr; }
+      .gal-item:nth-child(1) { grid-column: span 1; }
+      .about-values { grid-template-columns: 1fr; }
+      .filieres-stats { grid-template-columns: 1fr 1fr; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .btn-hero-primary, .btn-hero-ghost { text-align: center; justify-content: center; }
+      .hero-badge { font-size: 0.65rem; }
+      .about-badge-float { position: relative; bottom: auto; right: auto; margin-top: 20px; width: fit-content; }
+      .contact-items { gap: 12px; }
+      .contact-item-card { padding: 14px 16px; }
+      .stat-item { flex: 0 0 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav id="navbar" class="hero-mode">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="logo-fallback">
+        <img src="images/Logo 4.png" alt="Logo SOCOOPCA PK" onerror="this.style.display='none'">
+      </div>
+      <div class="nav-logo-text">
+        <strong>SOCOOPCA PK</strong>
+        <small>Producteurs de Koukoué</small>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#hero" class="active">Accueil</a></li>
+      <li><a href="#about">À Propos</a></li>
+      <li><a href="#filieres">Nos Produits</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#contact-section">Contact</a></li>
+    </ul>
+
+    <div class="nav-cta">
+      <a href="mailto:socoopcak@gmail.com?subject=Contact%20SOCOOCA%20PK&body=Bonjour%2C%20je%20souhaite%20vous%20contacter..." class="btn-member">
+        ✉ Nous contacter
+      </a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Menu mobile">
+  <ul>
+    <li><a href="#hero" onclick="closeMobile()"> Accueil</a></li>
+    <li><a href="#about" onclick="closeMobile()">À Propos</a></li>
+    <li><a href="#filieres" onclick="closeMobile()"> Nos Produits</a></li>
+    <li><a href="#galerie" onclick="closeMobile()">Galerie</a></li>
+    <li><a href="#contact-section" onclick="closeMobile()">Contact</a></li>
+  </ul>
+  <div class="mobile-menu-cta">
+    <a href="mailto:socoopcak@gmail.com?subject=Contact%20SOCOOCA%20PK&body=Bonjour%2C%20je%20souhaite%20vous%20contacter..."
+       class="btn-member" onclick="closeMobile()">
+      Nous écrire directement
+    </a>
+  </div>
+</div>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div class="hero-orb"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">Agriculture d'Excellence de Koukoué</div>
+        <h1 class="hero-title">
+          La Gestion <span class="highlight">Intelligente</span><br>
+          au Service de<br>l'Excellence Agricole
+        </h1>
+        <p class="hero-sub">
+          SOCOOCA PK rassemble les producteurs de Koukoué autour d'une vision commune :
+          valoriser l'huile de palme et le cacao avec traçabilité, solidarité et performance durable.
+        </p>
+        <div class="hero-actions">
+          <a href="#about" class="btn-hero-primary">
+            Découvrir la Coopérative
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="mailto:socoopcak@gmail.com?subject=Contact%20SOCOOCA%20PK&body=Bonjour%2C%20je%20souhaite%20vous%20contacter%20concernant%20votre%20coop%C3%A9rative."
+             class="btn-hero-ghost">
+            Nous écrire
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-value">500+</div>
+            <div class="stat-label">Producteurs membres</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">12</div>
+            <div class="stat-label">Années d'activité</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">2</div>
+            <div class="stat-label">Filières majeures</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card-main">
+          <div class="hero-img-placeholder">
+            <!-- <div class="palm-illustration">🌴</div> -->
+            <img src="images/image2.jpeg" alt="Vue générale de la plantation" onerror="this.style.display='none'">
+          </div>
+          <div class="hero-card-footer">
+            <div>
+              <p style="font-size:0.7rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;">Rendement 2024</p>
+              <p style="font-size:1.1rem;font-weight:700;color:#fff;">Production Record</p>
+            </div>
+            <span style="background:rgba(26,201,96,0.25);color:#4ade80;font-size:0.75rem;font-weight:700;padding:4px 12px;border-radius:99px;backdrop-filter:blur(8px);">▲ +18%</span>
+          </div>
+        </div>
+        <div class="hero-mini-cards">
+          <div class="hero-mini-card">
+            <!-- <div class="emoji">🛢️</div> -->
+            <p>Huile de Palme</p>
+          </div>
+          <div class="hero-mini-card">
+            <!-- <div class="emoji">🍫</div> -->
+            <p>Cacao Premium</p>
+          </div>
+          <div class="hero-mini-card">
+            <!-- <div class="emoji">🤝</div> -->
+            <p>Solidarité</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ À PROPOS ══════════ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual" data-sr="from-left">
+        <div class="about-img-frame">
+          <img src="images/image1.jpeg" alt="Plantation Koukoué"
+            onerror="this.style.display='none'">
+          <div class="about-img-overlay"></div>
+          <div class="about-img-fallback" style="display:flex;align-items:center;justify-content:center;font-size:8rem;opacity:0.25;position:absolute;inset:0;">🌴</div>
+        </div>
+        <div class="about-badge-float">
+          <div class="about-badge-icon">🏆</div>
+          <div class="about-badge-text">
+            <strong>12 ans</strong>
+            <small>d'engagement paysan</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-content" data-sr="from-right">
+        <span class="section-tag">À Propos de Nous</span>
+        <h2 class="section-title">Une Coopérative au Cœur de <span>Koukoué</span></h2>
+        <p class="section-lead">
+          Fondée par des producteurs locaux, la SOCOOCA PK est bien plus qu'une structure
+          agricole : c'est une communauté soudée autour de valeurs communes de solidarité,
+          de transparence et de développement durable.
+        </p>
+        <p style="font-size:0.92rem;color:var(--gray);line-height:1.8;margin-top:16px;">
+          Nous accompagnons chaque membre de la semence à la mise en marché, en offrant
+          un accès aux intrants, à la formation, au financement et aux circuits de
+          commercialisation équitables. Notre gouvernance participative, avec un Conseil
+          d'Administration élu, garantit que chaque producteur a voix au chapitre.
+        </p>
+        <div class="about-values">
+          <div class="value-card">
+            <!-- <div class="value-icon">🌱</div> -->
+            <h4>Durabilité</h4>
+            <p>Pratiques agroécologiques respectueuses de l'environnement.</p>
+          </div>
+          <div class="value-card">
+            <!-- <div class="value-icon">🤝</div> -->
+            <h4>Solidarité</h4>
+            <p>Soutien mutuel et accès équitable aux ressources.</p>
+          </div>
+          <div class="value-card">
+            <!-- <div class="value-icon">📊</div> -->
+            <h4>Transparence</h4>
+            <p>Gouvernance ouverte et traçabilité de chaque opération.</p>
+          </div>
+          <div class="value-card">
+            <!-- <div class="value-icon">🚀</div> -->
+            <h4>Innovation</h4>
+            <p>Adoption des meilleures pratiques agricoles modernes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FILIÈRES ══════════ -->
+<section id="filieres">
+  <div class="container">
+    <div class="filieres-header" data-sr="fade">
+      <span class="section-tag">Nos Filières</span>
+      <h2 class="section-title">L'Or Vert de <span>Koukoué</span></h2>
+      <p class="section-lead">
+        Deux filières phares qui font la réputation de nos producteurs sur les marchés nationaux et régionaux.
+      </p>
+    </div>
+
+    <div class="filieres-grid">
+      <div class="filiere-card palme" data-sr="from-left">
+        <div class="filiere-card-inner">
+          <!-- <div class="filiere-icon-wrap">🛢️</div> -->
+          <h3>Huile de Palme</h3>
+          <p>
+            Du régime de palme à l'huile brute ou raffinée, notre filière palmier couvre
+            toute la chaîne de valeur. Pressage modernisé, stockage sécurisé et
+            commercialisation directe pour maximiser les revenus des membres.
+          </p>
+          <div class="filiere-specs">
+            <span class="spec-pill">Huile Brute (CPO)</span>
+            <span class="spec-pill">Huile Raffinée</span>
+            <span class="spec-pill">Palme Durable</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filiere-card cacao" data-sr="from-right">
+        <div class="filiere-card-inner">
+          <!-- <div class="filiere-icon-wrap">🍫</div> -->
+          <h3>Cacao</h3>
+          <p>
+            Nos producteurs cultivent un cacao de qualité supérieure, fermenté et séché
+            selon des standards internationaux. Un cacao traçable, aux arômes fins,
+            destiné aux marchés premium d'exportation.
+          </p>
+          <div class="filiere-specs">
+            <span class="spec-pill">Fèves Fermentées</span>
+            <span class="spec-pill">Séchage Naturel</span>
+            <span class="spec-pill">Certifiable</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filieres-stats" data-sr="fade">
+      <div class="fstat-card">
+        <div class="fstat-val">2 500 t</div>
+        <div class="fstat-label">Huile de palme produite / an</div>
+      </div>
+      <div class="fstat-card">
+        <div class="fstat-val">380 t</div>
+        <div class="fstat-label">Cacao exporté / an</div>
+      </div>
+      <div class="fstat-card">
+        <div class="fstat-val">4 200 ha</div>
+        <div class="fstat-label">Surface cultivée</div>
+      </div>
+      <div class="fstat-card">
+        <div class="fstat-val">98%</div>
+        <div class="fstat-label">Taux de satisfaction membres</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ GALERIE ══════════ -->
+<section id="galerie">
+  <div class="container">
+    <div class="galerie-header" data-sr="from-left">
+      <span class="section-tag">Galerie</span>
+      <h2 class="section-title">Vie de la <span>Plantation</span></h2>
+      <p class="section-lead">Un regard authentique sur le quotidien de nos producteurs et la richesse de nos cultures.</p>
+    </div>
+
+    <div class="galerie-grid">
+      <div class="gal-item" data-sr="fade" data-img="images/image2.jpeg">
+        <img src="images/image2.jpeg" alt="Vue générale de la plantation" onerror="this.style.display='none'">
+        <div class="gal-placeholder"><span class="gal-emoji"></span><span>Vue Générale</span></div>
+        <div class="gal-overlay"><div class="gal-overlay-icon"></div></div>
+      </div>
+      <div class="gal-item" data-sr="fade" data-img="images/image3.jpeg">
+        <img src="images/image3.jpeg" alt="Récolte des régimes de palme" onerror="this.style.display='none'">
+        <div class="gal-placeholder"><span class="gal-emoji"></span><span>Récolte</span></div>
+        <div class="gal-overlay"><div class="gal-overlay-icon"></div></div>
+      </div>
+      <div class="gal-item" data-sr="fade" data-img="images/image4.jpeg">
+        <img src="images/image4.jpeg" alt="Séchage du cacao" onerror="this.style.display='none'">
+        <div class="gal-placeholder"><span class="gal-emoji"></span><span>Séchage Cacao</span></div>
+        <div class="gal-overlay"><div class="gal-overlay-icon"></div></div>
+      </div>
+      <div class="gal-item" data-sr="fade" data-img="images/image5.jpeg">
+        <img src="images/image5.jpeg" alt="Producteurs au travail" onerror="this.style.display='none'">
+        <div class="gal-placeholder"><span class="gal-emoji"></span><span>Nos Membres</span></div>
+        <div class="gal-overlay"><div class="gal-overlay-icon"></div></div>
+      </div>
+      <div class="gal-item" data-sr="fade" data-img="images/image6.jpeg">
+        <img src="images/image6.jpeg" alt="Pressoir à palme" onerror="this.style.display='none'">
+        <div class="gal-placeholder"><span class="gal-emoji"></span><span>Pressoir</span></div>
+        <div class="gal-overlay"><div class="gal-overlay-icon"></div></div>
+      </div>
+      <div class="gal-item" data-sr="fade" data-img="images/image7.jpeg">
+        <img src="images/image7.jpeg" alt="Réunion des coopérateurs" onerror="this.style.display='none'">
+        <div class="gal-placeholder"><span class="gal-emoji"></span><span>Assemblée</span></div>
+        <div class="gal-overlay"><div class="gal-overlay-icon"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Image agrandie">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Fermer"></button>
+  <img id="lightboxImg" src="" alt="Image agrandie">
+</div>
+
+<!-- ══════════ QUOTE STRIP ══════════ -->
+<section id="quote-strip">
+  <div class="container">
+    <div class="quote-glass" data-sr="fade">
+      <p class="quote-text">
+        « Ensemble, les producteurs de Koukoué bâtissent une agriculture prospère,
+        durable et fière de son terroir. Chaque régime récolté est une victoire collective. »
+      </p>
+      <div class="quote-author">
+        <div class="quote-avatar">👤</div>
+        <div class="quote-author-info">
+          <strong>Le Président du Conseil d'Administration</strong>
+          <small>SOCOOCA PK · Koukoué</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SECTION CONTACT ══════════ -->
+<section id="contact-section">
+  <div class="contact-orb-1"></div>
+  <div class="contact-orb-2"></div>
+  <div class="container">
+    <div class="contact-grid">
+      <!-- Infos de contact -->
+      <div class="contact-info" data-sr="from-left">
+        <span class="section-tag">Contactez-nous</span>
+        <h2 class="section-title">Parlons de votre <span>Projet</span></h2>
+        <p class="section-lead">
+          Vous souhaitez rejoindre la coopérative, commander nos produits, ou établir un partenariat ?
+          Notre équipe est disponible pour vous répondre.
+        </p>
+
+        <div class="contact-items">
+          <div class="contact-item-card">
+            <div class="contact-item-icon">📍</div>
+            <div class="contact-item-text">
+              <strong>Adresse</strong>
+              <span>Koukoué, Région du Littoral, Cameroun</span>
+            </div>
+          </div>
+          <a href="tel:+237697519533" class="contact-item-card">
+            <div class="contact-item-icon">📞</div>
+            <div class="contact-item-text">
+              <strong>Téléphone</strong>
+              <span>+237 697 519 533</span>
+            </div>
+          </a>
+          <a href="mailto:socoopcak@gmail.com?subject=Contact%20SOCOOCA%20PK&body=Bonjour%2C%20je%20souhaite%20vous%20contacter%20concernant..."
+             class="contact-item-card">
+            <div class="contact-item-icon">✉️</div>
+            <div class="contact-item-text">
+              <strong>Email — Cliquez pour écrire</strong>
+              <span>socoopcak@gmail.com</span>
+            </div>
+          </a>
+          <div class="contact-item-card">
+            <div class="contact-item-icon">🕐</div>
+            <div class="contact-item-text">
+              <strong>Horaires</strong>
+              <span>Lundi – Vendredi : 8h00 – 17h00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulaire de contact (ouvre l'email par défaut) -->
+      <div data-sr="from-right">
+        <div class="contact-form-glass">
+          <h3>Envoyez-nous un message</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-nom">Votre nom</label>
+              <input type="text" id="f-nom" placeholder="Jean Dupont">
+            </div>
+            <div class="form-group">
+              <label for="f-email">Votre email</label>
+              <input type="email" id="f-email" placeholder="vous@example.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="f-sujet">Sujet</label>
+            <select id="f-sujet">
+              <option value="">Sélectionnez un sujet</option>
+              <option value="adhesion">Adhésion à la coopérative</option>
+              <option value="commande">Commande de produits</option>
+              <option value="partenariat">Partenariat commercial</option>
+              <option value="information">Demande d'information</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f-message">Message</label>
+            <textarea id="f-message" placeholder="Décrivez votre demande..."></textarea>
+          </div>
+          <button type="button" class="btn-submit" id="btnEnvoyer">
+            ✉ Envoyer par email
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer id="footer-main">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:16px;">
+          <div class="logo-fallback">
+            <img src="images/logo 4.png" alt="Logo SOCOOCA PK" onerror="this.style.display='none'">
+          </div>
+          <div class="nav-logo-text">
+            <strong style="color:var(--orange);">SOCOOCA PK</strong>
+            <small style="color:rgba(255,255,255,0.4);">Producteurs de Koukoué</small>
+          </div>
+        </div>
+        <p>Société Coopérative avec Conseil d'Administration des Producteurs de Koukoué,
+           unie pour valoriser nos filières agricoles d'excellence.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn" title="Facebook" aria-label="Facebook">f</a>
+          <a href="#" class="social-btn" title="WhatsApp" aria-label="WhatsApp">W</a>
+          <a href="#" class="social-btn" title="LinkedIn" aria-label="LinkedIn">in</a>
+          <a href="#" class="social-btn" title="YouTube" aria-label="YouTube">▶</a>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="footer-col">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="#hero">Accueil</a></li>
+          <li><a href="#about">À Propos</a></li>
+          <li><a href="#filieres">Nos Produits</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="#contact-section">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact footer -->
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <div class="footer-contact-item">
+          <div class="contact-icon-small">📍</div>
+          <span>Koukoué, Région du Littoral, Cameroun</span>
+        </div>
+        <div class="footer-contact-item">
+          <div class="contact-icon-small">📞</div>
+          <a href="tel:+237697519533">+237 697 519 533</a>
+        </div>
+        <div class="footer-contact-item">
+          <div class="contact-icon-small">✉️</div>
+          <a href="mailto:socoopcak@gmail.com?subject=Contact%20SOCOOCA%20PK">socoopcak@gmail.com</a>
+        </div>
+        <div class="footer-contact-item">
+          <div class="contact-icon-small">🕐</div>
+          <span>Lun - Ven : 8h - 17h</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 SOCOOPCA PK · Tous droits réservés ·
+        <a href="#">Mentions légales</a> · <a href="#">Politique de confidentialité</a>
+      </p>
+      <p style="font-size:0.75rem;color:rgba(255,255,255,0.2);">
+        Conçu pour les producteurs de Koukoué
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll to top -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
+
+<!-- ══════════ SCRIPTS ══════════ -->
+<script>
+  // ─── NAVBAR SCROLL ───
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY > 40;
+    navbar.classList.toggle('scrolled', scrolled);
+    navbar.classList.toggle('hero-mode', !scrolled);
+    document.getElementById('scroll-top').classList.toggle('visible', window.scrollY > 300);
+  });
+
+  // ─── HAMBURGER ───
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobile() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+  // Fermer en cliquant en dehors
+  document.addEventListener('click', (e) => {
+    if (!navbar.contains(e.target) && !mobileMenu.contains(e.target)) {
+      closeMobile();
+    }
+  });
+
+  // ─── ACTIVE NAV LINK ───
+  const sections = document.querySelectorAll('section[id], footer[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => observer.observe(s));
+
+  // ─── SCROLLREVEAL ───
+  if (typeof ScrollReveal !== 'undefined') {
+    const sr = ScrollReveal({ distance: '40px', duration: 900, easing: 'cubic-bezier(0.4,0,0.2,1)', reset: false });
+    document.querySelectorAll('[data-sr="from-left"]').forEach(el =>
+      sr.reveal(el, { origin: 'left', delay: 100 })
+    );
+    document.querySelectorAll('[data-sr="from-right"]').forEach(el =>
+      sr.reveal(el, { origin: 'right', delay: 100 })
+    );
+    document.querySelectorAll('[data-sr="fade"]').forEach((el, i) =>
+      sr.reveal(el, { origin: 'bottom', delay: i * 80 })
+    );
+  }
+
+  // ─── HERO PARALLAX ───
+  window.addEventListener('scroll', () => {
+    const hero = document.getElementById('hero');
+    const scroll = window.scrollY;
+    if (hero && window.innerWidth > 768) {
+      hero.style.backgroundPosition = `center ${scroll * 0.3}px`;
+    }
+  });
+
+  // ─── GALERIE LIGHTBOX ───
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+
+  document.querySelectorAll('.gal-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const img = item.querySelector('img');
+      const src = img && img.src && !img.style.display.includes('none') ? img.src : null;
+      if (src) {
+        lightboxImg.src = src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ─── IMAGE FALLBACK ───
+  document.querySelectorAll('.gal-item img').forEach(img => {
+    img.addEventListener('error', function() { this.style.display = 'none'; });
+  });
+
+  // ─── STAT COUNTER ANIMATION ───
+  function animateCounter(el, target, suffix = '') {
+    let start = 0;
+    const duration = 1800;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.round(eased * target);
+      el.textContent = value.toLocaleString('fr-FR') + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const raw = el.dataset.count;
+        const suffix = el.dataset.suffix || '';
+        if (raw) { animateCounter(el, parseInt(raw), suffix); counterObserver.unobserve(el); }
+      }
+    });
+  }, { threshold: 0.5 });
+  const statMaps = [
+    { sel: '.hero-stats .stat-item:nth-child(1) .stat-value', count: 500, suffix: '+' },
+    { sel: '.hero-stats .stat-item:nth-child(2) .stat-value', count: 12, suffix: '' },
+    { sel: '.hero-stats .stat-item:nth-child(3) .stat-value', count: 2, suffix: '' },
+  ];
+  statMaps.forEach(({ sel, count, suffix }) => {
+    const el = document.querySelector(sel);
+    if (el) { el.dataset.count = count; el.dataset.suffix = suffix; counterObserver.observe(el); }
+  });
+
+  // ─── FORMULAIRE → MAILTO ───
+  document.getElementById('btnEnvoyer').addEventListener('click', () => {
+    const nom     = document.getElementById('f-nom').value.trim();
+    const email   = document.getElementById('f-email').value.trim();
+    const sujet   = document.getElementById('f-sujet').value;
+    const message = document.getElementById('f-message').value.trim();
+
+    const sujetLabels = {
+      adhesion: 'Adhésion à la coopérative',
+      commande: 'Commande de produits',
+      partenariat: 'Partenariat commercial',
+      information: "Demande d'information",
+      autre: 'Autre'
+    };
+    const sujetText = sujetLabels[sujet] || 'Contact SOCOOCA PK';
+
+    const body = [
+      nom     ? `Nom : ${nom}` : '',
+      email   ? `Email : ${email}` : '',
+      '',
+      message || '(pas de message)'
+    ].filter(l => l !== undefined).join('\n');
+
+    const mailtoUrl = `mailto:socoopcak@gmail.com`
+      + `?subject=${encodeURIComponent(sujetText)}`
+      + `&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoUrl;
+  });
+</script>
+</body>
+</html>
