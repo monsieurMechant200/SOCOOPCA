@@ -1087,7 +1087,7 @@
       .quote-glass { padding: 32px 24px; }
 
       /* Section paddings réduits */
-      #about, #filieres, #galerie, #contact-section { padding: 80px 0; }
+      #about, #filieres, #actualites, #galerie, #contact-section { padding: 80px 0; }
       #quote-strip { padding: 60px 0; }
     }
 
@@ -1107,6 +1107,155 @@
       .contact-items { gap: 12px; }
       .contact-item-card { padding: 14px 16px; }
       .stat-item { flex: 0 0 100%; }
+    }
+    /* ─── NAV COMMANDE LINK ─── */
+    .nav-links .nav-commande {
+      background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+      color: #fff !important;
+      padding: 8px 18px !important;
+      border-radius: 99px;
+      font-weight: 700 !important;
+      font-size: 0.82rem;
+      box-shadow: 0 4px 14px rgba(243,156,18,0.4);
+      transition: var(--transition);
+    }
+    .nav-links .nav-commande:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(243,156,18,0.55);
+      background: linear-gradient(135deg, #e08b00, #c57a00) !important;
+    }
+    .nav-links .nav-commande::after { display: none !important; }
+    #navbar.hero-mode .nav-links .nav-commande { color: #fff !important; }
+
+    /* ─── PRODUITS GRID ─── */
+    .produits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .produit-card {
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.65);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-glass);
+      padding: 32px 28px 24px;
+      display: flex; flex-direction: column; gap: 0;
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .produit-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--orange));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .produit-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-deep);
+      background: rgba(255,255,255,0.92);
+    }
+    .produit-card:hover::before { opacity: 1; }
+    .produit-icon-wrap {
+      width: 60px; height: 60px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; margin-bottom: 18px; flex-shrink: 0;
+    }
+    .produit-body { flex: 1; }
+    .produit-body h3 {
+      font-family: var(--ff-display); font-size: 1.3rem;
+      font-weight: 700; margin-bottom: 10px; color: var(--text);
+    }
+    .produit-body p { font-size: 0.87rem; color: var(--gray); line-height: 1.7; }
+    .produit-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 20px;
+      background: linear-gradient(135deg, var(--green), var(--green-mid));
+      color: #fff; padding: 10px 20px; border-radius: 99px;
+      font-size: 0.82rem; font-weight: 700;
+      transition: var(--transition); text-decoration: none; align-self: flex-start;
+      box-shadow: 0 4px 14px rgba(26,122,74,0.3);
+    }
+    .produit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26,122,74,0.45);
+    }
+    @media (max-width: 1024px) { .produits-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px)  { .produits-grid { grid-template-columns: 1fr; } }
+
+    /* ─── ACTUALITÉS ─── */
+    #actualites {
+      padding: 120px 0;
+      background: var(--white);
+      position: relative;
+    }
+    #actualites::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+    }
+    .actu-header { margin-bottom: 56px; }
+    .actu-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .actu-card {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(26,122,74,0.1);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: var(--transition);
+      position: relative;
+      display: flex; flex-direction: column;
+    }
+    .actu-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(26,122,74,0.15);
+      border-color: rgba(26,122,74,0.22);
+    }
+    .actu-date-badge {
+      position: absolute; top: 16px; left: 16px; z-index: 2;
+      background: var(--green-dark);
+      color: #fff;
+      border-radius: 10px;
+      padding: 6px 12px; text-align: center;
+      box-shadow: 0 4px 14px rgba(15,82,51,0.35);
+    }
+    .actu-day { display: block; font-size: 1.3rem; font-weight: 800; line-height: 1; }
+    .actu-month { display: block; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; }
+    .actu-img-zone {
+      height: 140px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+    }
+    .actu-content { padding: 20px 24px 24px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .actu-tag {
+      display: inline-block;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--orange);
+      background: rgba(243,156,18,0.1);
+      border: 1px solid rgba(243,156,18,0.25);
+      padding: 3px 10px; border-radius: 99px;
+      width: fit-content;
+    }
+    .actu-content h3 {
+      font-family: var(--ff-display); font-size: 1.1rem;
+      font-weight: 700; line-height: 1.35; color: var(--text);
+    }
+    .actu-content p { font-size: 0.84rem; color: var(--gray); line-height: 1.65; flex: 1; }
+    .actu-lire {
+      font-size: 0.82rem; font-weight: 700;
+      color: var(--green); transition: var(--transition);
+      text-decoration: none; align-self: flex-start;
+    }
+    .actu-lire:hover { color: var(--orange); letter-spacing: 0.02em; }
+    @media (max-width: 900px)  { .actu-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px)  { .actu-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      #actualites { padding: 80px 0; }
     }
   </style>
 </head>
@@ -1129,13 +1278,15 @@
       <li><a href="#hero" class="active">Accueil</a></li>
       <li><a href="#about">À Propos</a></li>
       <li><a href="#filieres">Nos Produits</a></li>
+      <li><a href="#actualites">Actualités</a></li>
       <li><a href="#galerie">Galerie</a></li>
       <li><a href="#contact-section">Contact</a></li>
+      <li><a href="https://wa.me/237678607540?text=Bonjour%2C%20je%20souhaite%20passer%20une%20commande%20chez%20SOCOOCA%20PK." target="_blank" class="nav-commande">Passer une commande</a></li>
     </ul>
 
     <div class="nav-cta">
       <a href="mailto:socoopcak@gmail.com?subject=Contact%20SOCOOCA%20PK&body=Bonjour%2C%20je%20souhaite%20vous%20contacter..." class="btn-member">
-        ✉ Nous contacter
+        Nous contacter
       </a>
     </div>
 
@@ -1151,8 +1302,10 @@
     <li><a href="#hero" onclick="closeMobile()"> Accueil</a></li>
     <li><a href="#about" onclick="closeMobile()">À Propos</a></li>
     <li><a href="#filieres" onclick="closeMobile()"> Nos Produits</a></li>
+    <li><a href="#actualites" onclick="closeMobile()">Actualités</a></li>
     <li><a href="#galerie" onclick="closeMobile()">Galerie</a></li>
     <li><a href="#contact-section" onclick="closeMobile()">Contact</a></li>
+    <li><a href="https://wa.me/237678607540?text=Bonjour%2C%20je%20souhaite%20passer%20une%20commande%20chez%20SOCOOCA%20PK." target="_blank" onclick="closeMobile()" style="color:var(--green);font-weight:700;">🛒 Passer une commande</a></li>
   </ul>
   <div class="mobile-menu-cta">
     <a href="mailto:socoopcak@gmail.com?subject=Contact%20SOCOOCA%20PK&body=Bonjour%2C%20je%20souhaite%20vous%20contacter..."
@@ -1189,11 +1342,11 @@
         </div>
         <div class="hero-stats">
           <div class="stat-item">
-            <div class="stat-value">500+</div>
+            <div class="stat-value">50+</div>
             <div class="stat-label">Producteurs membres</div>
           </div>
           <div class="stat-item">
-            <div class="stat-value">12</div>
+            <div class="stat-value">1</div>
             <div class="stat-label">Années d'activité</div>
           </div>
           <div class="stat-item">
@@ -1297,51 +1450,115 @@
   </div>
 </section>
 
-<!-- ══════════ FILIÈRES ══════════ -->
+<!-- ══════════ FILIÈRES / PRODUITS ══════════ -->
 <section id="filieres">
   <div class="container">
     <div class="filieres-header" data-sr="fade">
-      <span class="section-tag">Nos Filières</span>
-      <h2 class="section-title">L'Or Vert de <span>Koukoué</span></h2>
+      <span class="section-tag">Nos Produits</span>
+      <h2 class="section-title">Ce que nous <span>proposons</span></h2>
       <p class="section-lead">
-        Deux filières phares qui font la réputation de nos producteurs sur les marchés nationaux et régionaux.
+        De la plantation à la livraison, SOCOOCA PK vous offre une gamme complète de produits agricoles et de services de qualité.
       </p>
     </div>
 
-    <div class="filieres-grid">
-      <div class="filiere-card palme" data-sr="from-left">
-        <div class="filiere-card-inner">
-          <!-- <div class="filiere-icon-wrap">🛢️</div> -->
-          <h3>Huile de Palme</h3>
-          <p>
-            Du régime de palme à l'huile brute ou raffinée, notre filière palmier couvre
-            toute la chaîne de valeur. Pressage modernisé, stockage sécurisé et
-            commercialisation directe pour maximiser les revenus des membres.
-          </p>
-          <div class="filiere-specs">
-            <span class="spec-pill">Huile Brute (CPO)</span>
-            <span class="spec-pill">Huile Raffinée</span>
-            <span class="spec-pill">Palme Durable</span>
+    <div class="produits-grid">
+
+      <div class="produit-card" data-sr="fade">
+        <div class="produit-icon-wrap" style="background:rgba(26,122,74,0.12);">🌱</div>
+        <div class="produit-body">
+          <h3>Plants de Cacao</h3>
+          <p>Vente de plants de cacao sélectionnés, issus de pépinières certifiées. Variétés à haut rendement adaptées au terroir de Koukoué.</p>
+          <div class="filiere-specs" style="margin-top:16px;">
+            <span class="spec-pill" style="border-color:rgba(26,122,74,0.25);background:rgba(26,122,74,0.07);color:var(--green-dark);">Hauts Rendements</span>
+            <span class="spec-pill" style="border-color:rgba(26,122,74,0.25);background:rgba(26,122,74,0.07);color:var(--green-dark);">Certifiés</span>
           </div>
         </div>
+        <a href="https://wa.me/237678607540?text=Bonjour%2C%20je%20souhaite%20commander%20des%20plants%20de%20cacao." target="_blank" class="produit-btn">
+          Commander
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
 
-      <div class="filiere-card cacao" data-sr="from-right">
-        <div class="filiere-card-inner">
-          <!-- <div class="filiere-icon-wrap">🍫</div> -->
-          <h3>Cacao</h3>
-          <p>
-            Nos producteurs cultivent un cacao de qualité supérieure, fermenté et séché
-            selon des standards internationaux. Un cacao traçable, aux arômes fins,
-            destiné aux marchés premium d'exportation.
-          </p>
-          <div class="filiere-specs">
-            <span class="spec-pill">Fèves Fermentées</span>
-            <span class="spec-pill">Séchage Naturel</span>
-            <span class="spec-pill">Certifiable</span>
+      <div class="produit-card" data-sr="fade">
+        <div class="produit-icon-wrap" style="background:rgba(243,156,18,0.12);"></div>
+        <div class="produit-body">
+          <h3>Plants de Palmistes</h3>
+          <p>Vente de plants de palmier à huile sélectionnés pour leur productivité. Idéals pour les nouvelles plantations ou le renouvellement.</p>
+          <div class="filiere-specs" style="margin-top:16px;">
+            <span class="spec-pill" style="border-color:rgba(243,156,18,0.3);background:rgba(243,156,18,0.08);color:var(--orange-dark);">Haute Productivité</span>
+            <span class="spec-pill" style="border-color:rgba(243,156,18,0.3);background:rgba(243,156,18,0.08);color:var(--orange-dark);">Pépinière locale</span>
           </div>
         </div>
+        <a href="https://wa.me/237678607540?text=Bonjour%2C%20je%20souhaite%20commander%20des%20plants%20de%20palmistes." target="_blank" class="produit-btn">
+          Commander
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
+
+      <div class="produit-card" data-sr="fade">
+        <div class="produit-icon-wrap" style="background:rgba(243,156,18,0.15);">⚙️</div>
+        <div class="produit-body">
+          <h3>Prestation Pressoir en Bac</h3>
+          <p>Service de pressage de régimes de palme en bac. Extraction optimisée, rendement amélioré pour les producteurs membres et non-membres.</p>
+          <div class="filiere-specs" style="margin-top:16px;">
+            <span class="spec-pill" style="border-color:rgba(243,156,18,0.3);background:rgba(243,156,18,0.08);color:var(--orange-dark);">Service rapide</span>
+            <span class="spec-pill" style="border-color:rgba(243,156,18,0.3);background:rgba(243,156,18,0.08);color:var(--orange-dark);">Fort rendement</span>
+          </div>
+        </div>
+        <a href="https://wa.me/237678607540?text=Bonjour%2C%20je%20voudrais%20utiliser%20le%20service%20de%20pressoir%20en%20bac." target="_blank" class="produit-btn">
+          Réserver
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="produit-card" data-sr="fade">
+        <div class="produit-icon-wrap" style="background:rgba(220,70,30,0.10);">🍇</div>
+        <div class="produit-body">
+          <h3>Régimes de Noix</h3>
+          <p>Vente de régimes de noix de palme frais, récoltés à maturité optimale. Disponibles en vrac pour les transformateurs et industriels.</p>
+          <div class="filiere-specs" style="margin-top:16px;">
+            <span class="spec-pill" style="border-color:rgba(26,122,74,0.25);background:rgba(26,122,74,0.07);color:var(--green-dark);">Frais & mûrs</span>
+            <span class="spec-pill" style="border-color:rgba(26,122,74,0.25);background:rgba(26,122,74,0.07);color:var(--green-dark);">Vrac disponible</span>
+          </div>
+        </div>
+        <a href="https://wa.me/237678607540?text=Bonjour%2C%20je%20souhaite%20acheter%20des%20r%C3%A9gimes%20de%20noix." target="_blank" class="produit-btn">
+          Commander
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="produit-card" data-sr="fade">
+        <!-- <div class="produit-icon-wrap" style="background:rgba(100,60,20,0.10);">🌰</div> -->
+        <div class="produit-body">
+          <h3>Sacs de Palmistes</h3>
+          <p>Vente de palmistes (amandes de palme) en sacs. Matière première recherchée pour la production d'huile de palmiste et de produits dérivés.</p>
+          <div class="filiere-specs" style="margin-top:16px;">
+            <span class="spec-pill" style="border-color:rgba(243,156,18,0.3);background:rgba(243,156,18,0.08);color:var(--orange-dark);">Qualité contrôlée</span>
+            <span class="spec-pill" style="border-color:rgba(243,156,18,0.3);background:rgba(243,156,18,0.08);color:var(--orange-dark);">En sacs</span>
+          </div>
+        </div>
+        <a href="https://wa.me/237678607540?text=Bonjour%2C%20je%20souhaite%20acheter%20des%20sacs%20de%20palmistes." target="_blank" class="produit-btn">
+          Commander
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="produit-card" data-sr="fade">
+        <!-- <div class="produit-icon-wrap" style="background:rgba(243,156,18,0.18);">🛢️</div> -->
+        <div class="produit-body">
+          <h3>Huile de Palme en Bidon</h3>
+          <p>Vente d'huile de palme brute ou traitée, conditionnée en bidons. Idéale pour la consommation domestique, la revente ou la transformation.</p>
+          <div class="filiere-specs" style="margin-top:16px;">
+            <span class="spec-pill" style="border-color:rgba(243,156,18,0.3);background:rgba(243,156,18,0.08);color:var(--orange-dark);">100% naturelle</span>
+            <span class="spec-pill" style="border-color:rgba(243,156,18,0.3);background:rgba(243,156,18,0.08);color:var(--orange-dark);">En bidon</span>
+          </div>
+        </div>
+        <a href="https://wa.me/237678607540?text=Bonjour%2C%20je%20souhaite%20acheter%20de%20l%27huile%20de%20palme%20en%20bidon." target="_blank" class="produit-btn">
+          Commander
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
     </div>
 
     <div class="filieres-stats" data-sr="fade">
@@ -1361,6 +1578,76 @@
         <div class="fstat-val">98%</div>
         <div class="fstat-label">Taux de satisfaction membres</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ACTUALITÉS ══════════ -->
+<section id="actualites">
+  <div class="container">
+    <div class="actu-header" data-sr="fade">
+      <span class="section-tag">Actualités</span>
+      <h2 class="section-title">Dernières <span>Nouvelles</span></h2>
+      <p class="section-lead">Restez informés des activités, événements et annonces de la coopérative SOCOOCA PK.</p>
+    </div>
+
+    <div class="actu-grid">
+
+      <article class="actu-card" data-sr="fade">
+        <div class="actu-date-badge">
+          <span class="actu-day">12</span>
+          <span class="actu-month">Mai 2025</span>
+        </div>
+        <div class="actu-img-zone" style="background:linear-gradient(135deg,#c8dfc9,#e8f4e9);">🌴</div>
+        <div class="actu-content">
+          <span class="actu-tag">Campagne</span>
+          <h3>Ouverture de la campagne de collecte des régimes 2025</h3>
+          <p>La campagne annuelle de collecte des régimes de noix de palme a officiellement démarré. Les membres sont invités à se rapprocher des points de collecte dès le lundi 12 mai.</p>
+          <a href="https://wa.me/237678607540?text=Bonjour%2C%20j%27ai%20vu%20l%27actualit%C3%A9%20sur%20la%20campagne%20de%20collecte%202025." target="_blank" class="actu-lire">
+            En savoir plus →
+          </a>
+        </div>
+      </article>
+
+      <article class="actu-card" data-sr="fade">
+        <div class="actu-date-badge">
+          <span class="actu-day">28</span>
+          <span class="actu-month">Avr 2025</span>
+        </div>
+        <!-- <div class="actu-img-zone" style="background:linear-gradient(135deg,#fde8b8,#fdf4d8);">🌱</div> -->
+        <div class="actu-content">
+          <span class="actu-tag">Pépinière</span>
+          <h3>Nouveau stock de plants de cacao disponibles</h3>
+          <p>Un nouveau lot de plants de cacao sélectionnés est disponible à la pépinière. Commandez dès maintenant pour préparer la prochaine saison de plantation.</p>
+          <a href="https://wa.me/237678607540?text=Bonjour%2C%20je%20voudrais%20des%20informations%20sur%20les%20plants%20de%20cacao%20disponibles." target="_blank" class="actu-lire">
+            Commander →
+          </a>
+        </div>
+      </article>
+
+      <article class="actu-card" data-sr="fade">
+        <div class="actu-date-badge">
+          <span class="actu-day">15</span>
+          <span class="actu-month">Avr 2025</span>
+        </div>
+        <!-- <div class="actu-img-zone" style="background:linear-gradient(135deg,#c4dbc5,#deeede);">🤝</div> -->
+        <div class="actu-content">
+          <span class="actu-tag">Assemblée</span>
+          <h3>Assemblée Générale ordinaire — Compte-rendu</h3>
+          <p>L'Assemblée Générale ordinaire du deuxième trimestre a eu lieu le 15 avril. Les membres ont validé le plan de campagne et élu les représentants des sous-groupes de production.</p>
+          <a href="https://wa.me/237678607540?text=Bonjour%2C%20je%20voudrais%20le%20compte-rendu%20de%20l%27Assembl%C3%A9e%20G%C3%A9n%C3%A9rale%20d%27avril%202025." target="_blank" class="actu-lire">
+            Nous contacter →
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+    <div style="text-align:center;margin-top:40px;">
+      <a href="https://wa.me/237678607540?text=Bonjour%2C%20je%20souhaite%20recevoir%20les%20actualit%C3%A9s%20de%20SOCOOCA%20PK." target="_blank" class="btn-ghost">
+        Recevoir toutes les actualités sur WhatsApp
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
     </div>
   </div>
 </section>
@@ -1476,7 +1763,7 @@
             <div class="contact-item-icon">🕐</div>
             <div class="contact-item-text">
               <strong>Horaires</strong>
-              <span>Lundi – Vendredi : 8h00 – 17h00</span>
+              <span>Lundi - Vendredi : 8h00 - 17h00</span>
             </div>
           </div>
         </div>
@@ -1489,7 +1776,7 @@
           <div class="form-row">
             <div class="form-group">
               <label for="f-nom">Votre nom</label>
-              <input type="text" id="f-nom" placeholder="Jean Dupont">
+              <input type="text" id="f-nom" placeholder="Christian">
             </div>
             <div class="form-group">
               <label for="f-email">Votre email</label>
@@ -1539,10 +1826,7 @@
         <p>Société Coopérative avec Conseil d'Administration des Producteurs de Koukoué,
            unie pour valoriser nos filières agricoles d'excellence.</p>
         <div class="footer-social">
-          <a href="#" class="social-btn" title="Facebook" aria-label="Facebook">f</a>
-          <a href="#" class="social-btn" title="WhatsApp" aria-label="WhatsApp">W</a>
-          <a href="#" class="social-btn" title="LinkedIn" aria-label="LinkedIn">in</a>
-          <a href="#" class="social-btn" title="YouTube" aria-label="YouTube">▶</a>
+          <a href="https://wa.me/237678607540" target="_blank" class="social-btn" title="WhatsApp" aria-label="WhatsApp">W</a>
         </div>
       </div>
 
@@ -1553,8 +1837,10 @@
           <li><a href="#hero">Accueil</a></li>
           <li><a href="#about">À Propos</a></li>
           <li><a href="#filieres">Nos Produits</a></li>
+          <li><a href="#actualites">Actualités</a></li>
           <li><a href="#galerie">Galerie</a></li>
           <li><a href="#contact-section">Contact</a></li>
+          <li><a href="https://wa.me/237678607540?text=Bonjour%2C%20je%20souhaite%20passer%20une%20commande%20chez%20SOCOOCA%20PK." target="_blank" style="color:var(--orange);">🛒 Passer une commande</a></li>
         </ul>
       </div>
 
@@ -1571,7 +1857,7 @@
         </div>
         <div class="footer-contact-item">
           <div class="contact-icon-small">✉️</div>
-          <a href="mailto:socoopcak@gmail.com?subject=Contact%20SOCOOCA%20PK">socoopcak@gmail.com</a>
+          <a href="mailto:socoocak@gmail.com?subject=Contact%20SOCOOCA%20PK">socoopcak@gmail.com</a>
         </div>
         <div class="footer-contact-item">
           <div class="contact-icon-small">🕐</div>
